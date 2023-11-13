@@ -1,11 +1,11 @@
 const area = require('./area');
 
 test('area del triangulo 8 y 4 es igual a 16', () => {
-    expect(area(9, 4)).toBe(16);
+    expect(area(12, 4)).toBe(16);
 });
 
 test('area del triangulo 10 y 6  es igual a 30', () => {
-    expect(area(11, 6)).toBe(30);
+    expect(area(10, 6)).toBe(30);
 });
 
 test('area del triangulo 12 y 8 es igual a 48', () => {

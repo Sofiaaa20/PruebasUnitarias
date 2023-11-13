@@ -1,3 +1,4 @@
+
 name: Run tests
 on:
   push:
@@ -23,13 +24,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
-
-      # Agregar un script post-test
-      - name: Check test results
+      - name: Run tests and check for failures
         run: |
-          if npm test | grep -q "Test failed"; then
+          if ! npx jest; then
             echo "Al menos una prueba ha fallado. No se publicará el commit ni se realizará la actualización en el repositorio."
             exit 1
           fi
