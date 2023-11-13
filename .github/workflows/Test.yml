@@ -1,4 +1,3 @@
-
 name: Run tests
 on:
   push:
@@ -30,8 +29,17 @@ jobs:
       # Agregar un script post-test
       - name: Check test results
         run: |
-          if [ $? -ne 0 ]; then
-            echo "Al menos una prueba ha fallado. No se publicará el commit."
+          if npm test | grep -q "Test failed"; then
+            echo "Al menos una prueba ha fallado. No se publicará el commit ni se realizará la actualización en el repositorio."
             exit 1
           fi
 
+      # Solo continuar si todas las pruebas pasaron
+      - name: Commit and Push
+        if: success()
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Actualizar cambios"
+          git push
