@@ -13,7 +13,7 @@ test('area del triangulo 12 y 8 es igual a 48', () => {
 });
 
 test('area del triangulo 5 y 7 es igual a 17.5', () => {
-    expect(area(7, 7)).toBe(17.5);
+    expect(area(5, 7)).toBe(17.5);
 });
 
 test('area del triangulo 3  y 9 es igual a 13.5', () => {
