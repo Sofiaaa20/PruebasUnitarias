@@ -5,7 +5,7 @@ test('restar 10 * 10 es igual a 100', () => {
 });
 
 test('restar 10 * 3 es igual a 0', () => {
-    expect(multi(10,4)).toBe(30);
+    expect(multi(10,3)).toBe(30);
 });
 
 test('restar 5 * 5 es igual a 25', () => {

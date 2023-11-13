@@ -4,7 +4,7 @@ test('restar 10 - 10 es igual a 0', () => {
     expect(restar(10,10)).toBe(0);
 });
 
-test('restar 100 - 40 es igual a 0', () => {
+test('restar 100 - 40 es igual a 60', () => {
     expect(restar(100,40)).toBe(60);
 });
 
