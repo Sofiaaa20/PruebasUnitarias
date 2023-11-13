@@ -1,26 +1,22 @@
-name: Test
+name: testing
 
-on:
-
-  push:
-    branches:
-      - main # Reemplaza con tu rama principal
+on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14' # Puedes cambiar la versión de Node.js si es necesario
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
 
-      - name: Install dependencies
-        run: npm install # O yarn install si usas yarn
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run test
-        run: npm test #
+    - name: Run tests
+      run: npm test
