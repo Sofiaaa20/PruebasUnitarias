@@ -26,14 +26,16 @@ jobs:
 
       - name: Run tests and check for failures
         run: |
-          if ! npx jest; then
+          if npx jest; then
+            echo "Todas las pruebas han pasado."
+          else
             echo "Al menos una prueba ha fallado. No se publicará el commit ni se realizará la actualización en el repositorio."
             exit 1
           fi
 
       # Solo continuar si todas las pruebas pasaron
       - name: Commit and Push
-        if: success()
+        if: success() && github.event_name == 'push'
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
