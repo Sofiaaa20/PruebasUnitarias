@@ -1,40 +1,23 @@
+
 name: Testing
 
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up environment
-        run: |
-          # Configura aquí tu entorno de desarrollo (instalación de dependencias, etc.)
-          # Ejemplo: npm install
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
 
-      - name: Run tests
-        run: |
-          # Ejecuta aquí tus pruebas unitarias
-          # Ejemplo: npm test
+    - name: Install dependencies
+      run: npm install
 
-      - name: Check test results
-        run: |
-          # Instala las dependencias y ejecuta las pruebas
-          npm install
-          npm test
-        
-          # Verifica el resultado de las pruebas y detén el flujo de trabajo si fallan
-          if [ $? -ne 0 ]; then
-          echo "Las pruebas unitarias fallaron. No se permite el push."
-          exit 1
-          else
-          echo "Las pruebas unitarias fueron exitosas. Se permite el push."
-          fi
-
-        shell: bash
+    - name: Run tests
+      run: npm test
