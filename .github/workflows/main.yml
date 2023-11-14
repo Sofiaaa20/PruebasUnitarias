@@ -1,32 +1,41 @@
-name: Run test
+name: Run Unit Tests
 
-on: 
+on:
   push:
     branches:
-      'main'
-  pull_request:
-    branches:
-        'main'
+      - main
 
 jobs:
-  tests:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    
-    - name: Checkout
+    - name: Checkout Repository
       uses: actions/checkout@v2
 
-    
-    - name: Setup Node
+    - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 20.9.0
+        node-version: 14
 
-    
     - name: Install Dependencies
       run: npm install
 
-    
-    - name: Run tests
+    - name: Run Tests
       run: npm test
+
+    - name: Check Test Results
+      run: |
+        if [ $? -ne 0 ]; then
+          echo "Al menos una prueba ha fallado. No se permitirá subir el código."
+          exit 1
+        fi
+
+    - name: Commit and Push Changes
+      if: success()
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add .
+        git commit -m "Actualizar cambios"
+        git push
